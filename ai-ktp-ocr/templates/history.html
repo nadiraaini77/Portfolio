@@ -1,0 +1,75 @@
+{% extends "base.html" %} {% block title %}VeriKTP AI — Database History{%
+endblock %} {% block content %}
+<header class="hero hero-compact">
+  <div class="hero-text">
+    <span class="eyebrow">Verification History</span>
+    <h1>Database <span class="gradient-text">History</span></h1>
+    <p class="lead">
+      Seluruh hasil OCR yang tersimpan — baik VALID maupun INVALID — untuk audit
+      trail lengkap.
+    </p>
+  </div>
+</header>
+
+<section class="stats-grid">
+  <div class="card stat-card">
+    <span class="stat-label">Total Dokumen</span>
+    <strong class="stat-value">{{ total }}</strong>
+  </div>
+  <div class="card stat-card">
+    <span class="stat-label">Valid</span>
+    <strong class="stat-value stat-valid">{{ total_valid }}</strong>
+  </div>
+  <div class="card stat-card">
+    <span class="stat-label">Invalid</span>
+    <strong class="stat-value stat-invalid">{{ total_invalid }}</strong>
+  </div>
+</section>
+
+<section class="card">
+  <div class="card-header-row">
+    <h2>Verification History</h2>
+    <a href="/history/export" class="primary-pill small">⬇️ Export CSV</a>
+  </div>
+  <div class="table-wrap">
+    <table id="historyTable">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>NIK</th>
+          <th>Jenis Dokumen</th>
+          <th>Status</th>
+          <th>Upload Time</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% if records %} {% for item in records %}
+        <tr>
+          <td>{{ item.id }}</td>
+          <td>{{ item.nama }}</td>
+          <td class="mono">{{ item.nomor_dokumen }}</td>
+          <td>{{ item.jenis_dokumen }}</td>
+          <td>
+            {% if item.status_validasi == "VALID" %}
+            <span class="badge badge-green">🟢 VALID</span>
+            {% else %}
+            <span class="badge badge-red">🔴 INVALID</span>
+            {% endif %}
+          </td>
+          <td>{{ item.tanggal_upload }}</td>
+        </tr>
+        {% endfor %} {% else %}
+        <tr class="empty-row">
+          <td colspan="6">
+            📄<br />
+            <strong>No verification history yet.</strong><br />
+            Upload your first Indonesian ID Card to get started.
+          </td>
+        </tr>
+        {% endif %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endblock %}

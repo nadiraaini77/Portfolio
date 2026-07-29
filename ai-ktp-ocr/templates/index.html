@@ -1,0 +1,118 @@
+{% extends "base.html" %} {% block title %}VeriKTP AI — Upload & Verifikasi{%
+endblock %} {% block content %}
+<header class="hero">
+  <div class="hero-text">
+    <span class="eyebrow"> AI Identity Verification </span>
+
+    <h1>VeriKTP <span class="gradient-text">AI</span></h1>
+
+    <p class="lead">
+      VeriKTP AI is an AI-powered application for Indonesian Identity Card
+      verification. The system classifies uploaded documents, extracts
+      information from KTPs using AI-based OCR, validates the extracted data,
+      and stores the verification results in a database.
+    </p>
+
+    <div class="ai-model">
+      <div class="ai-icon">🤖</div>
+
+      <div class="ai-content">
+        <span class="ai-label">AI Model</span>
+        <span class="ai-name">Google Gemini 2.5 Flash</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="dashboard">
+  <div class="upload-section card">
+    <h2>Upload Document</h2>
+    <div class="dropzone" id="dropzone" tabindex="0">
+      <div id="placeholder">
+        <div class="upload-icon">☁️</div>
+        <h3>Drop your KTP here</h3>
+        <p>or click to browse</p>
+        <small>PNG • JPG • JPEG</small>
+      </div>
+      <input type="file" id="imageInput" accept="image/*" />
+    </div>
+    <!-- Tombol ini awalnya disembunyikan -->
+    <button id="changeImageBtn" class="secondary-btn" style="display: none">
+      📂 Replace Image
+    </button>
+    <div class="preview-wrap" id="previewCard">
+      <img id="previewImage" src="" alt="Preview" />
+      <div class="preview-meta">
+        <h4 id="fileName">No image selected</h4>
+        <span id="statusBadge">Waiting</span>
+      </div>
+    </div>
+    <button id="processBtn" disabled>Process Document</button>
+  </div>
+
+  <div class="summary-section card">
+    <h2>Verification Result</h2>
+    <div class="result-highlight">
+      <strong id="validation">-</strong>
+      <p>Overall Validation Status</p>
+    </div>
+    <div class="summary-list">
+      <div class="summary-item">
+        <span>Classification</span><strong id="classification">-</strong>
+      </div>
+      <div class="summary-item">
+        <span>OCR Status</span><strong id="ocrStatus">-</strong>
+      </div>
+      <div class="summary-item">
+        <span>Processing Time</span><strong id="processingTime">-</strong>
+      </div>
+      <div class="summary-item">
+        <span>Database ID</span><strong id="databaseId">-</strong>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="card">
+  <h2>Extracted Information</h2>
+  <div class="ocr-grid">
+    <div class="ocr-row">
+      <span>NIK</span><strong id="ocrNik" class="mono">-</strong>
+    </div>
+    <div class="ocr-row"><span>Name</span><strong id="ocrNama">-</strong></div>
+    <div class="ocr-row"><span>Birth</span><strong id="ocrTTL">-</strong></div>
+    <div class="ocr-row">
+      <span>Gender</span><strong id="ocrGender">-</strong>
+    </div>
+    <div class="ocr-row full">
+      <span>Address</span><strong id="ocrAlamat">-</strong>
+    </div>
+    <div class="ocr-row">
+      <span>RT / RW</span><strong id="ocrRTRW" class="mono">-</strong>
+    </div>
+    <div class="ocr-row">
+      <span>Village</span><strong id="ocrKelurahan">-</strong>
+    </div>
+    <div class="ocr-row">
+      <span>District</span><strong id="ocrKecamatan">-</strong>
+    </div>
+    <div class="ocr-row">
+      <span>Religion</span><strong id="ocrAgama">-</strong>
+    </div>
+    <div class="ocr-row">
+      <span>Marital Status</span><strong id="ocrStatusPerkawinan">-</strong>
+    </div>
+    <div class="ocr-row">
+      <span>Occupation</span><strong id="ocrPekerjaan">-</strong>
+    </div>
+    <div class="ocr-row">
+      <span>Nationality</span><strong id="ocrKewarganegaraan">-</strong>
+    </div>
+    <div class="ocr-row">
+      <span>Valid Until</span><strong id="ocrBerlaku" class="mono">-</strong>
+    </div>
+  </div>
+</section>
+{% endblock %} {% block scripts %}
+<script defer src="/static/app.js"></script>
+{% endblock %}
